@@ -122,3 +122,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Setting the model we want to use as Django user model
+AUTH_USER_MODEL = 'profiles_app.UserProfile'

@@ -4,6 +4,10 @@ from rest_framework.response import Response #Used to return responses from APIV
 from rest_framework import status
 from profiles_app import serializers
 from rest_framework import viewsets
+from profiles_app import models
+from rest_framework.authentication import TokenAuthentication
+from profiles_app import permissions
+
 
 class HelloApiView(APIView):
     """Test APIView"""
@@ -85,3 +89,12 @@ class HelloViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         """Removing an object"""
         return Response({'http_method':'DELETE'})
+
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handles creating and updating profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
